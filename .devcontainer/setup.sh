@@ -9,6 +9,8 @@ systemctl restart zramswap
 systemctl start docker
 systemctl enable tlp && systemctl start tlp
 
+apt install -y nodejs npm
+
 npm install -g npm yarn pm2
 
 echo '* soft nofile 1048576' | tee -a /etc/security/limits.conf
@@ -25,7 +27,7 @@ scripts=(
   "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/ognode.sh"
   "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/pipe.sh"
   "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/gaiacloud.sh"
-  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/restart_gaianet.sh
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/restart_gaianet.sh"
 )
 
 echo "📥 Downloading all scripts..."
