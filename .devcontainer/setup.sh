@@ -32,18 +32,37 @@ scripts=(
 
 echo "📥 Downloading all scripts..."
 
+# Store filenames in an array
+filenames=()
+
 for url in "${scripts[@]}"; do
   filename=$(basename "$url")
   echo "⬇️ Downloading $filename..."
   curl -sSLO "$url"
+  filenames+=("$filename")  # add filename to array
 done
 
 echo "✅ All scripts downloaded!"
 
-echo "🔓 Making all scripts executable..."
-chmod +x *.sh
+echo "🔓 Making downloaded scripts executable..."
+for file in "${filenames[@]}"; do
+  chmod +x "$file"
+done
 
-echo "🚀 Ready to run scripts manually or automate!"
+echo "🚀 Running only downloaded scripts..."
+
+for file in "${filenames[@]}"; do
+  echo "⚙️ Running $file..."
+  bash "$file"
+  exit_code=$?
+  if [ $exit_code -ne 0 ]; then
+    echo "❌ $file failed with exit code $exit_code!"
+  else
+    echo "✅ $file completed successfully!"
+  fi
+done
+
+echo "🎉 All downloaded scripts executed!"
 
 
 # Check if Gbot.env exists in the current directory
