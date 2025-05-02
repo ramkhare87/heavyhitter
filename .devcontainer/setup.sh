@@ -16,14 +16,33 @@ echo '* hard nofile 1048576' | tee -a /etc/security/limits.conf
 ulimit -n 1048576
 
 cd "/workspaces/heavyhitter"
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/gh_installer.sh && bash gh_installer.sh
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/megen.sh && bash megen.sh
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/mega.sh && bash mega.sh
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/mega_downloader.sh && bash mega_downloader.sh
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/ognode.sh && bash ognode.sh
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/pipe.sh && bash pipe.sh
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/gaiacloud.sh && bash gaiacloud.sh
-curl -sSLO https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/restart_gaianet.sh && bash restart_gaianet.sh
+
+scripts=(
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/gh_installer.sh"
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/megen.sh"
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/mega.sh"
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/mega_downloader.sh"
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/ognode.sh"
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/pipe.sh"
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/gaiacloud.sh"
+  "https://raw.githubusercontent.com/naksh-07/Automate/refs/heads/main/restart_gaianet.sh
+)
+
+echo "📥 Downloading all scripts..."
+
+for url in "${scripts[@]}"; do
+  filename=$(basename "$url")
+  echo "⬇️ Downloading $filename..."
+  curl -sSLO "$url"
+done
+
+echo "✅ All scripts downloaded!"
+
+echo "🔓 Making all scripts executable..."
+chmod +x *.sh
+
+echo "🚀 Ready to run scripts manually or automate!"
+
 
 # Check if Gbot.env exists in the current directory
 if [ -f "Gbot.env" ]; then
